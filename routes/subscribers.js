@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // Getting One
-router.get('/:id', getSubscriber, (req, res) => {
+router.get('/:id', getSubscriber, async (req, res) => {
     res.json(res.subscriber);
 });
 
@@ -33,9 +33,17 @@ router.post('/', async (req, res) => {
 });
 
 // Updating One
-router.patch('/:id', (req, res) => {});
+router.patch('/:id', (req, res) => { });
+
 // Deleting One
-router.delete('/:id', (req, res) => {});
+router.delete('/:id', getSubscriber, async (req, res) => {
+    try {
+        await res.subscriber.remove();
+        res.json({message: 'Deleted Subscriber'});
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
+});
 
 // Middle Ware to Fetch the data from database
 async function getSubscriber(req, res, next) {
