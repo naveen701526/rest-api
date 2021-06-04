@@ -14,8 +14,8 @@ router.get('/', async (req, res) => {
 });
 
 // Getting One
-router.get('/:id', (req, res) => {
-    res.send(req.params.id);
+router.get('/:id', getSubscriber, (req, res) => {
+    res.json(res.subscriber);
 });
 
 // Creating One
@@ -37,6 +37,7 @@ router.patch('/:id', (req, res) => {});
 // Deleting One
 router.delete('/:id', (req, res) => {});
 
+// Middle Ware to Fetch the data from database
 async function getSubscriber(req, res, next) {
     let subscriber;
     try {
